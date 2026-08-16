@@ -1,0 +1,339 @@
+/* ============================================================
+   BIBLIOPHILE — RESPONSIVE CSS
+   Mobile-first breakpoints
+   ============================================================ */
+
+/* ── Tablet & below (< 1024px) ── */
+@media (max-width: 1024px) {
+
+  /* Hero */
+  .hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding-block: var(--space-16) var(--space-12);
+  }
+
+  .hero-subtitle,
+  .hero-description {
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-books {
+    height: 360px;
+    order: -1;
+  }
+
+  .hero-book-1 { width: 120px; height: 180px; left: 8%; top: 5%; }
+  .hero-book-2 { width: 140px; height: 210px; left: 33%; top: 2%; }
+  .hero-book-3 { width: 115px; height: 172px; right: 6%; top: 15%; }
+
+  /* Featured book */
+  .featured-card {
+    grid-template-columns: 280px 1fr;
+  }
+
+  .featured-body {
+    padding: var(--space-8) var(--space-8);
+  }
+
+  /* How it works */
+  .hiw-steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hiw-steps::before {
+    display: none;
+  }
+
+  .hiw-steps > .hiw-step:nth-child(4),
+  .hiw-steps > .hiw-step:nth-child(5) {
+    grid-column: auto;
+  }
+
+  /* Rental rules */
+  .rules-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Readers corner */
+  .readers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .readers-sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .currently-reading-card {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  /* About */
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-image {
+    display: none;
+  }
+
+  /* Footer */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ── Mobile (< 768px) ── */
+@media (max-width: 768px) {
+
+  /* Navigation */
+  .nav-links {
+    display: none;
+  }
+
+  .btn-wa-nav {
+    display: none;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+
+  .nav-icon-btn[aria-label="Search"] {
+    /* keep visible on mobile */
+  }
+
+  /* Hero */
+  .hero-title {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+  }
+
+  .hero-books {
+    height: 280px;
+  }
+
+  .hero-book-1 { width: 95px; height: 145px; left: 2%; top: 10%; }
+  .hero-book-2 { width: 115px; height: 172px; left: 30%; top: 5%; }
+  .hero-book-3 { width: 95px; height: 140px; right: 2%; top: 18%; }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .hero-actions .btn-primary,
+  .hero-actions .btn-secondary {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+
+  /* Stats */
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    text-align: center;
+  }
+
+  .stat-item + .stat-item::before {
+    top: 0;
+    bottom: auto;
+    left: 20%;
+    right: 20%;
+    width: auto;
+    height: 1px;
+  }
+
+  /* Featured book */
+  .featured-card {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .featured-cover-wrap {
+    aspect-ratio: 3/2;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  }
+
+  .featured-body {
+    padding: var(--space-6);
+    gap: var(--space-4);
+  }
+
+  /* Catalogue */
+  .catalogue-controls {
+    gap: var(--space-4);
+  }
+
+  .search-wrap {
+    max-width: 100%;
+  }
+
+  .grid-books {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  /* Book card */
+  .book-card-body {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  /* How it works */
+  .hiw-steps {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  .hiw-step {
+    flex-direction: row;
+    text-align: left;
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+
+  .hiw-icon-wrap {
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+  }
+
+  .hiw-step-body {
+    flex: 1;
+  }
+
+  /* Rental rules */
+  .rules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Readers corner */
+  .recommendations {
+    grid-template-columns: 1fr;
+  }
+
+  /* Request a book */
+  .request-section {
+    padding: var(--space-10) var(--space-6);
+  }
+
+  /* Contact */
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Modal */
+  .modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-gallery {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  }
+
+  .modal-main-img {
+    aspect-ratio: 3/2;
+  }
+
+  .modal-body {
+    padding: var(--space-5);
+  }
+
+  .modal-specs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .modal-price-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  /* Footer */
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* Sticky WhatsApp */
+  .sticky-wa {
+    display: flex;
+  }
+
+  /* Sections */
+  .section {
+    padding-block: var(--space-16);
+  }
+
+  .section-lg {
+    padding-block: var(--space-16);
+  }
+
+  /* Container */
+  .container {
+    padding-inline: var(--space-4);
+  }
+}
+
+/* ── Small mobile (< 480px) ── */
+@media (max-width: 480px) {
+
+  .grid-books {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin-inline: auto;
+  }
+
+  .hero-books {
+    height: 220px;
+  }
+
+  .hero-book-1 { width: 75px; height: 115px; left: 2%; top: 15%; }
+  .hero-book-2 { width: 95px; height: 140px; left: 28%; top: 8%; }
+  .hero-book-3 { width: 80px; height: 118px; right: 2%; top: 22%; }
+
+  .featured-details-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .modal-specs {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    max-height: 95vh;
+    border-radius: var(--radius-lg);
+  }
+
+  .modal-overlay {
+    padding: var(--space-3);
+    align-items: flex-end;
+  }
+}
+
+/* ── Large screens (> 1400px) ── */
+@media (min-width: 1400px) {
+  .grid-books {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

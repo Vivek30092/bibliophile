@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ── SEO ── -->
+  <title>Bibliophile | Book Rental Library</title>
+  <meta name="description" content="Discover, borrow and enjoy books from Bibliophile — a local homegrown book rental library. Browse our curated collection and rent your next great read.">
+  <meta name="keywords" content="book rental, library, borrow books, local library, bibliophile">
+  <meta name="author" content="Bibliophile">
+  <meta name="robots" content="index, follow">
+
+  <!-- ── Open Graph ── -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Bibliophile | Book Rental Library">
+  <meta property="og:description" content="A little library, waiting for your next story. Browse and borrow books from our curated collection.">
+  <meta property="og:url" content="https://bibliophile.in"> <!-- TODO: update with real URL -->
+  <meta property="og:site_name" content="Bibliophile">
+  <meta property="og:locale" content="en_IN">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bibliophile | Book Rental Library">
+  <meta name="twitter:description" content="A little library, waiting for your next story.">
+
+  <!-- ── Favicon ── -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="shortcut icon" href="assets/favicon.svg">
+
+  <!-- ── Preconnect ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://covers.openlibrary.org">
+
+  <!-- ── CSS ── -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════
+       AMBIENT BACKGROUND BLOBS
+       ══════════════════════════════════════════════ -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="bg-blob bg-blob-1"></div>
+    <div class="bg-blob bg-blob-2"></div>
+    <div class="bg-blob bg-blob-3"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       NAVIGATION
+       ══════════════════════════════════════════════ -->
+  <nav id="navbar" class="navbar at-top" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <!-- Logo -->
+      <a href="#home" class="nav-logo" aria-label="Bibliophile – go to home">
+        <svg class="nav-logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M21 4H3a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h1.5a2.5 2.5 0 0 1 5 0H21a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1zm-1 14H9.914A4.493 4.493 0 0 0 8 16.5a4.493 4.493 0 0 0-1.914 1.5H4V6h16v12z"/>
+          <path d="M7 9h10v1.5H7zm0 3h10v1.5H7zm0 3h6v1.5H7z"/>
+        </svg>
+        Bibliophile
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="nav-links" role="list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#readers-corner">Reader's Corner</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+
+      <!-- Actions -->
+      <div class="nav-actions">
+        <button id="nav-search-btn" class="nav-icon-btn" aria-label="Search books">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
+        <a href="https://wa.me/917828659551" target="_blank" rel="noopener noreferrer" class="btn-wa-nav" aria-label="Chat on WhatsApp">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          WhatsApp
+        </a>
+
+        <!-- Hamburger -->
+        <button id="nav-hamburger" class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Search overlay -->
+  <div id="nav-search-overlay" class="nav-search-overlay" role="search">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="8"/>
+      <path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input type="search" id="nav-search-input" class="nav-search-input" placeholder="Search by title or author…" autocomplete="off" aria-label="Search books">
+    <button id="nav-search-close" class="nav-icon-btn" aria-label="Close search">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="nav-mobile-menu" class="nav-mobile-menu" aria-hidden="true">
+    <ul class="nav-mobile-links" role="list">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#collection">Collection</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#readers-corner">Reader's Corner</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="https://wa.me/917828659551" target="_blank" rel="noopener noreferrer" class="btn-whatsapp" style="width:100%;justify-content:center;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Chat on WhatsApp
+    </a>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       MAIN CONTENT
+       ══════════════════════════════════════════════ -->
+  <main>
+
+    <!-- ── 1. HERO ── -->
+    <section id="home" class="hero" aria-label="Hero">
+      <div class="container">
+        <div class="hero-grid">
+
+          <!-- Left: Text -->
+          <div class="hero-text">
+            <div class="hero-label hero-animate-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              Local Book Rental Library
+            </div>
+
+            <h1 class="hero-title hero-animate-2">
+              Biblio<em>phile</em>
+            </h1>
+
+            <p class="hero-subtitle hero-animate-3">
+              A little library, waiting for your next story.
+            </p>
+
+            <p class="hero-description hero-animate-4">
+              Discover books, borrow your favourites, and keep the stories moving. A curated home library for readers who love great books without the cost of owning them all.
+            </p>
+
+            <div class="hero-actions hero-animate-5">
+              <a href="#collection" class="btn-primary">
+                Explore Collection
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+              <a href="#how-it-works" class="btn-secondary">How It Works</a>
+            </div>
+          </div>
+
+          <!-- Right: Floating books -->
+          <div class="hero-books" aria-hidden="true">
+            <div class="hero-books-glow"></div>
+            <div class="hero-book hero-book-1 float-1">
+              <img src="https://covers.openlibrary.org/b/isbn/9780062315007-L.jpg" alt="" loading="lazy" decoding="async">
+            </div>
+            <div class="hero-book hero-book-2 float-2">
+              <img src="https://covers.openlibrary.org/b/isbn/9780735211292-L.jpg" alt="" loading="lazy" decoding="async">
+            </div>
+            <div class="hero-book hero-book-3 float-3">
+              <img src="https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg" alt="" loading="lazy" decoding="async">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Decorative bottom fade -->
+      <div style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent, var(--bg-base));pointer-events:none;" aria-hidden="true"></div>
+    </section>
+
+    <!-- ── 2. STATS STRIP ── -->
+    <div class="stats-strip" aria-label="Library at a glance">
+      <div class="container">
+        <div class="stats-grid stagger-children">
+          <div class="stat-item">
+            <div class="stat-number" data-counter data-target="40" data-suffix="+">40+</div>
+            <div class="stat-label">Books in Collection</div>
+            <div class="stat-sublabel">and growing</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">₹30+</div>
+            <div class="stat-label">Affordable Rentals</div>
+            <div class="stat-sublabel">per 7 days</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">Local</div>
+            <div class="stat-label">Home Library</div>
+            <!-- TODO: Add your city/neighbourhood here -->
+            <div class="stat-sublabel">Indore</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 3. FEATURED / BOOK OF THE WEEK ── -->
+    <section id="featured" class="featured-section" aria-label="Featured book">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Book of the Week</span>
+          <h2 class="section-title">Featured Story</h2>
+          <p class="section-subtitle">Our current favourite — curated just for you.</p>
+        </div>
+        <!-- Populated by catalogue.js -->
+        <div id="featured-book-container"></div>
+      </div>
+    </section>
+
+    <!-- ── 4. BOOK COLLECTION ── -->
+    <section id="collection" class="section" aria-label="Book collection">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Catalogue</span>
+          <h2 class="section-title">Explore the Collection</h2>
+          <p class="section-subtitle">Find something for your next reading session.</p>
+        </div>
+
+        <!-- Search + Filters -->
+        <div class="catalogue-controls reveal">
+          <div class="search-wrap">
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+            <input
+              type="search"
+              id="book-search"
+              class="search-input"
+              placeholder="Search by title or author…"
+              autocomplete="off"
+              aria-label="Search books by title or author"
+            >
+          </div>
+
+          <div class="filter-chips" role="group" aria-label="Filter by genre">
+            <button class="filter-chip active" data-filter="all">All</button>
+            <button class="filter-chip" data-filter="fiction">Fiction</button>
+            <button class="filter-chip" data-filter="romance">Romance</button>
+            <button class="filter-chip" data-filter="mystery">Mystery</button>
+            <button class="filter-chip" data-filter="thriller">Thriller</button>
+            <button class="filter-chip" data-filter="fantasy">Fantasy</button>
+            <button class="filter-chip" data-filter="self-help">Self-Help</button>
+            <button class="filter-chip" data-filter="biography">Biography</button>
+            <button class="filter-chip" data-filter="non-fiction">Non-Fiction</button>
+            <button class="filter-chip" data-filter="personal-development">Personal Dev</button>
+          </div>
+        </div>
+
+        <!-- Book grid — populated by catalogue.js -->
+        <div id="catalogue-grid" class="grid-books" role="list" aria-label="Books catalogue"></div>
+      </div>
+    </section>
+
+    <!-- ── 5. HOW IT WORKS ── -->
+    <section id="how-it-works" class="section hiw-section" aria-label="How it works">
+      <div class="container">
+        <div class="section-header centered reveal">
+          <span class="section-label">Process</span>
+          <h2 class="section-title">How It Works</h2>
+          <p class="section-subtitle">Renting a book from Bibliophile is as easy as it gets.</p>
+        </div>
+
+        <div class="hiw-steps stagger-children" role="list">
+
+          <div class="hiw-step" role="listitem">
+            <div class="hiw-icon-wrap" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+            </div>
+            <div class="hiw-step-body">
+              <div class="hiw-step-number">01</div>
+              <h3 class="hiw-step-title">Pick</h3>
+              <p class="hiw-step-desc">Browse the collection and choose a book that calls to you.</p>
+            </div>
+          </div>
+
+          <div class="hiw-step" role="listitem">
+            <div class="hiw-icon-wrap" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <div class="hiw-step-body">
+              <div class="hiw-step-number">02</div>
+              <h3 class="hiw-step-title">Request</h3>
+              <p class="hiw-step-desc">Send a rental request through WhatsApp. We'll confirm quickly.</p>
+            </div>
+          </div>
+
+          <div class="hiw-step" role="listitem">
+            <div class="hiw-icon-wrap" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="hiw-step-body">
+              <div class="hiw-step-number">03</div>
+              <h3 class="hiw-step-title">Collect</h3>
+              <p class="hiw-step-desc">Pick up the book or arrange local delivery.</p>
+            </div>
+          </div>
+
+          <div class="hiw-step" role="listitem">
+            <div class="hiw-icon-wrap" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <div class="hiw-step-body">
+              <div class="hiw-step-number">04</div>
+              <h3 class="hiw-step-title">Read</h3>
+              <p class="hiw-step-desc">Enjoy the book during your rental period. Read it slowly.</p>
+            </div>
+          </div>
+
+          <div class="hiw-step" role="listitem">
+            <div class="hiw-icon-wrap" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+                <polyline points="1 4 1 10 7 10"/>
+                <path d="M3.51 15a9 9 0 1 0 .49-4.5"/>
+              </svg>
+            </div>
+            <div class="hiw-step-body">
+              <div class="hiw-step-number">05</div>
+              <h3 class="hiw-step-title">Return</h3>
+              <p class="hiw-step-desc">Return the book before the due date and get your deposit back.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 6. RENTAL RULES ── -->
+    <section id="rental-rules" class="section" aria-label="Rental rules">
+      <div class="container">
+        <div class="section-header centered reveal">
+          <span class="section-label">Guidelines</span>
+          <h2 class="section-title">Rental Rules</h2>
+          <p class="section-subtitle">Simple, fair, and designed to keep the books moving.</p>
+        </div>
+
+        <div class="rules-grid stagger-children">
+
+          <div class="rule-card">
+            <div class="rule-icon" aria-hidden="true">📅</div>
+            <h3 class="rule-title">Rental Duration</h3>
+            <p class="rule-desc">Books are rented for <strong>7, 14, or 30 days</strong> depending on the title. The duration is shown on each book's page.</p>
+          </div>
+
+          <div class="rule-card">
+            <div class="rule-icon" aria-hidden="true">🔒</div>
+            <h3 class="rule-title">Security Deposit</h3>
+            <p class="rule-desc">A refundable security deposit is required and returned when the book is returned in the same condition.</p>
+          </div>
+
+          <div class="rule-card">
+            <div class="rule-icon" aria-hidden="true">⏰</div>
+            <h3 class="rule-title">Late Returns</h3>
+            <p class="rule-desc">Late returns may incur a small daily charge. Please let us know in advance if you need more time — we'll try to accommodate.</p>
+          </div>
+
+          <div class="rule-card">
+            <div class="rule-icon" aria-hidden="true">📖</div>
+            <h3 class="rule-title">Book Condition</h3>
+            <p class="rule-desc">Please treat the books with care. Significant damage beyond normal wear may be deducted from the security deposit.</p>
+          </div>
+
+          <div class="rule-card">
+            <div class="rule-icon" aria-hidden="true">🔁</div>
+            <h3 class="rule-title">Renewals</h3>
+            <p class="rule-desc">You can renew your rental if nobody else has reserved the book. Simply message us before the due date.</p>
+          </div>
+
+          <div class="rule-card">
+            <div class="rule-icon" aria-hidden="true">❓</div>
+            <h3 class="rule-title">Lost Books</h3>
+            <p class="rule-desc">In the unfortunate case of a lost book, the replacement cost will be discussed fairly. We understand accidents happen.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 7. COMING SOON ── -->
+    <section id="coming-soon-section" class="section" aria-label="Coming soon books" style="padding-top:0;">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Coming Soon</span>
+          <h2 class="section-title">Arriving Next</h2>
+          <p class="section-subtitle">Books we're adding to the collection soon — stay tuned.</p>
+        </div>
+        <!-- Populated by catalogue.js -->
+        <div id="coming-soon-grid" class="grid-books" style="max-width:800px;"></div>
+      </div>
+    </section>
+
+    <!-- ── 8. READER'S CORNER ── -->
+    <section id="readers-corner" class="readers-corner" aria-label="Reader's corner">
+      <div class="container">
+        <div class="section-header reveal" style="margin-bottom:var(--space-10);">
+          <span class="section-label" style="color:var(--accent-light);">Community</span>
+          <h2 class="section-title" style="color:white;">Reader's Corner</h2>
+          <p class="section-subtitle" style="color:rgba(255,255,255,0.55);">Stories we're loving right now — and a few words to inspire your next read.</p>
+        </div>
+
+        <div class="readers-grid">
+
+          <!-- Sidebar -->
+          <aside class="readers-sidebar reveal-left">
+            <div>
+              <div class="footer-col-title" style="color:rgba(255,255,255,0.4);margin-bottom:var(--space-4);">Currently Reading</div>
+              <div class="currently-reading-card">
+                <div class="currently-reading-cover">
+                  <img src="https://covers.openlibrary.org/b/isbn/9780062315007-L.jpg" alt="The Alchemist cover" loading="lazy">
+                </div>
+                <div>
+                  <div class="currently-reading-label">Reading now</div>
+                  <div class="currently-reading-title">The Alchemist</div>
+                  <div class="currently-reading-author">Paulo Coelho</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:var(--space-4);">
+              <div class="footer-col-title" style="color:rgba(255,255,255,0.4);margin-bottom:var(--space-4);">We Recommend</div>
+              <div style="display:flex;flex-direction:column;gap:var(--space-3);">
+                <div style="padding:var(--space-3) var(--space-4);background:rgba(255,255,255,0.05);border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.07);">
+                  <div style="font-family:var(--font-display);font-style:italic;font-size:0.875rem;color:rgba(255,255,255,0.7);line-height:1.5;">
+                    "If you loved <em>Atomic Habits</em>, try <strong style="color:white;">The Power of Now</strong> — another book that quietly changes you."
+                  </div>
+                </div>
+                <div style="padding:var(--space-3) var(--space-4);background:rgba(255,255,255,0.05);border-radius:var(--radius-md);border:1px solid rgba(255,255,255,0.07);">
+                  <div style="font-family:var(--font-display);font-style:italic;font-size:0.875rem;color:rgba(255,255,255,0.7);line-height:1.5;">
+                    "After <em>Gone Girl</em>, <strong style="color:white;">The Silent Patient</strong> will absolutely wreck you — in the best way."
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Main quotes + recommendations -->
+          <div class="readers-main reveal-right">
+
+            <div class="featured-quote">
+              <blockquote>
+                "A reader lives a thousand lives before he dies. The man who never reads lives only one."
+              </blockquote>
+              <cite>— George R.R. Martin</cite>
+            </div>
+
+            <div class="recommendations stagger-children">
+              <div class="recommendation-card">
+                <div class="rec-label">Short Review</div>
+                <p class="rec-text">"<em>The Kite Runner</em> is one of those rare novels that stays with you for weeks after the last page. Deeply moving, beautifully written."</p>
+              </div>
+              <div class="recommendation-card">
+                <div class="rec-label">Reading Mood</div>
+                <p class="rec-text">Looking for something gripping? Pick up <em>Gone Girl</em> on a Friday evening. You will not sleep until it's done.</p>
+              </div>
+              <div class="recommendation-card">
+                <div class="rec-label">From the Shelf</div>
+                <p class="rec-text"><em>Sapiens</em> will make you question everything you thought you knew about history, humanity, and meaning. Start slowly.</p>
+              </div>
+              <div class="recommendation-card">
+                <div class="rec-label">Reader Quote</div>
+                <p class="rec-text">"Reading <em>Ikigai</em> felt like a long conversation with a wise friend over tea. Simple, nourishing, genuinely beautiful."</p>
+              </div>
+            </div>
+
+            <div style="margin-top:var(--space-4);">
+              <blockquote style="font-family:var(--font-display);font-style:italic;font-size:1.125rem;color:rgba(255,255,255,0.55);line-height:1.6;border-left:2px solid var(--accent-dark);padding-left:var(--space-5);">
+                "Books are a uniquely portable magic."
+                <footer style="margin-top:var(--space-2);font-size:0.8125rem;color:rgba(255,255,255,0.3);">— Stephen King</footer>
+              </blockquote>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 9. REQUEST A BOOK ── -->
+    <section id="request" class="section" aria-label="Request a book">
+      <div class="container">
+        <div class="request-section reveal">
+          <span class="section-label" style="justify-content:center;">Request</span>
+          <h2 class="section-title" style="margin-top:var(--space-3);">Can't find the book you're looking for?</h2>
+          <p style="font-size:1.0625rem;color:var(--text-secondary);line-height:1.7;margin-block:var(--space-4) var(--space-8);max-width:480px;margin-inline:auto;">
+            Tell us what you'd like to read. If enough readers request it, we may add it to the collection.
+          </p>
+          <!-- TODO: Replace href with your Google Form URL -->
+          <a href="https://forms.google.com" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Request a Book
+          </a>
+          <p style="margin-top:var(--space-4);font-size:0.8125rem;color:var(--text-muted);">
+            Or message us directly on
+            <a href="https://wa.me/917828659551" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:600;">WhatsApp</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 10. ABOUT ── -->
+    <section id="about" class="section" style="background:linear-gradient(180deg, transparent 0%, rgba(237,232,225,0.6) 100%);" aria-label="About Bibliophile">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-text">
+            <div class="reveal">
+              <span class="section-label">Our Story</span>
+              <h2 class="section-title" style="margin-top:var(--space-3);">A small library<br>with a big heart.</h2>
+            </div>
+            <p class="reveal" style="font-size:1.0625rem;color:var(--text-secondary);line-height:1.8;">
+              Bibliophile started the way many good things do — with a pile of beloved books, a genuine love of reading, and a simple idea: what if the neighbourhood could share these stories?
+            </p>
+            <p class="reveal" style="font-size:1.0625rem;color:var(--text-secondary);line-height:1.8;">
+              We're not a big commercial bookstore. We're a small, home-based library run by readers, for readers. Every book in our collection has been chosen because it's worth your time. We believe great stories shouldn't be expensive or hard to find.
+            </p>
+            <p class="reveal" style="font-size:1.0625rem;color:var(--text-secondary);line-height:1.8;">
+              Right now we're just getting started — a handful of carefully chosen titles, growing slowly. And that's exactly what we love about it. Small, personal, and entirely yours to discover.
+            </p>
+            <div class="reveal" style="display:flex;gap:var(--space-4);flex-wrap:wrap;margin-top:var(--space-4);">
+              <a href="https://wa.me/917828659551" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                Say Hello on WhatsApp
+              </a>
+              <a href="#collection" class="btn-secondary">Browse Collection</a>
+            </div>
+          </div>
+
+          <div class="about-image reveal-right" aria-hidden="true">
+            <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-4);padding:var(--space-8);text-align:center;background:var(--glass-bg);backdrop-filter:var(--glass-blur);border:1px solid var(--glass-border);border-radius:var(--radius-xl);">
+              <div style="font-size:5rem;">📚</div>
+              <p style="font-family:var(--font-display);font-style:italic;font-size:1.25rem;color:var(--text-secondary);line-height:1.5;">
+                "Borrow stories,<br>not shelves."
+              </p>
+              <p style="font-size:0.8125rem;color:var(--text-muted);">— Bibliophile</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 11. CONTACT ── -->
+    <section id="contact" class="section" aria-label="Contact Bibliophile">
+      <div class="container">
+        <div class="section-header centered reveal">
+          <span class="section-label">Get in Touch</span>
+          <h2 class="section-title">Contact Us</h2>
+          <p class="section-subtitle">Have a question or want to rent a book? We're just a message away.</p>
+        </div>
+
+        <div class="contact-grid stagger-children">
+
+          <a href="https://wa.me/917828659551" target="_blank" rel="noopener noreferrer" class="contact-card">
+            <div class="contact-icon" style="background:rgba(37,211,102,0.1);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </div>
+            <h3 class="contact-card-title">WhatsApp</h3>
+            <p class="contact-card-desc">Primary way to reach us — fast responses, rental requests, and all queries.</p>
+            <span class="contact-card-action">Message Us →</span>
+          </a>
+
+          <!-- Instagram -->
+          <!-- TODO: Replace with your Instagram profile URL -->
+          <a href="https://instagram.com/bibliophile.books" target="_blank" rel="noopener noreferrer" class="contact-card">
+            <div class="contact-icon" style="background:rgba(225,48,108,0.1);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </div>
+            <h3 class="contact-card-title">Instagram</h3>
+            <!-- TODO: Replace @bibliophile.books with your handle -->
+            <p class="contact-card-desc">Follow us for new arrivals, book photos, and reading recommendations.</p>
+            <span class="contact-card-action">@bibliophile.books →</span>
+          </a>
+
+          <!-- Location -->
+          <div class="contact-card" style="cursor:default;">
+            <div class="contact-icon" style="background:rgba(184,134,78,0.1);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <h3 class="contact-card-title">Location</h3>
+            <!-- TODO: Update with your city or neighbourhood (do NOT put a private home address here) -->
+            <p class="contact-card-desc">We're a home-based library serving readers locally. Contact us on WhatsApp for the pickup location.</p>
+            <span class="contact-card-action">Located in Indore →</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════════
+       FOOTER
+       ══════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+          <a href="#home" class="nav-logo" style="color:white;" aria-label="Bibliophile home">
+            <svg class="nav-logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M21 4H3a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h1.5a2.5 2.5 0 0 1 5 0H21a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1zm-1 14H9.914A4.493 4.493 0 0 0 8 16.5a4.493 4.493 0 0 0-1.914 1.5H4V6h16v12z"/>
+            </svg>
+            Bibliophile
+          </a>
+          <p class="footer-tagline">Your little world of books.</p>
+          <div class="footer-social">
+            <!-- TODO: Replace with your Instagram URL -->
+            <a href="https://instagram.com/bibliophile.books" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="https://wa.me/917828659551" target="_blank" rel="noopener noreferrer" class="footer-social-btn" aria-label="WhatsApp">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick links -->
+        <div>
+          <div class="footer-col-title">Explore</div>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#collection">Collection</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#rental-rules">Rental Rules</a></li>
+            <li><a href="#readers-corner">Reader's Corner</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <ul class="footer-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#request">Request a Book</a></li>
+            <li><a href="https://wa.me/917828659551" target="_blank" rel="noopener noreferrer">WhatsApp Us</a></li>
+            <!-- TODO: Replace with your Instagram URL -->
+            <li><a href="https://instagram.com/bibliophile.books" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2026 Bibliophile. All rights reserved.</p>
+        <p class="footer-made">Made with ❤️ for readers everywhere.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════
+       BOOK DETAIL MODAL
+       ══════════════════════════════════════════════ -->
+  <div id="book-modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div id="book-modal-content" class="modal-content">
+      <!-- Populated dynamically by modal.js -->
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       STICKY WHATSAPP (Mobile)
+       ══════════════════════════════════════════════ -->
+  <!-- TODO: Replace with your WhatsApp number -->
+  <a href="https://wa.me/917828659551" class="sticky-wa" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ══════════════════════════════════════════════
+       JAVASCRIPT — order matters
+       ══════════════════════════════════════════════ -->
+  <script src="js/data.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/catalogue.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/animations.js"></script>
+
+</body>
+</html>
