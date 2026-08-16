@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  const WHATSAPP_NUMBER = '+917828659551'; 
+  const WHATSAPP_NUMBER = '917828659551'; 
   const overlay = document.getElementById('book-modal-overlay');
   const modalContent = document.getElementById('book-modal-content');
   const closeBtn = document.getElementById('modal-close-btn');

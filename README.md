@@ -43,9 +43,9 @@ Just open `index.html` in any browser. No build step required.
 Search for `TODO` in the codebase and update the WhatsApp number:
 
 **Files to update:**
-- `js/modal.js` → line ~6: `const WHATSAPP_NUMBER = '919999999999';`
-- `js/catalogue.js` → line ~6: `const WHATSAPP_NUMBER = '919999999999';`
-- `index.html` → every `wa.me/919999999999` link
+- `js/modal.js` → line ~6: `const WHATSAPP_NUMBER = '917828659551';`
+- `js/catalogue.js` → line ~6: `const WHATSAPP_NUMBER = '917828659551';`
+- `index.html` → every `wa.me/917828659551` link
 
 **Format:** Country code + number, no `+`, no spaces.  
 Example for India: `919876543210`
@@ -72,6 +72,7 @@ In `index.html`, search for `your city` and replace with your city or neighbourh
    - Book title
    - Author
    - Phone/WhatsApp
+   - Address
    - Message (optional)
 3. Copy the form URL
 4. In `index.html`, replace `https://forms.google.com` with your form URL
