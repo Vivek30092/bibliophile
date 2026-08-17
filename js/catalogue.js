@@ -31,10 +31,10 @@
 
   function getAvailabilityLabel(availability) {
     const map = {
-      'Available':   '🟢 Available',
-      'Rented':      '🔴 Rented',
-      'Reserved':    '🟠 Reserved',
-      'Coming Soon': '🔵 Coming Soon'
+      'Available':   'Available',
+      'Rented':      'Rented',
+      'Reserved':    'Reserved',
+      'Coming Soon': 'Coming Soon'
     };
     return map[availability] || availability;
   }
@@ -103,20 +103,29 @@
     return card;
   }
 
+  // ── Pagination state ─────────────────────────────────────
+  const PAGE_SIZE = 12;
+  let currentPage = 1;
+
   // ── Filter & search ──────────────────────────────────────
   function getFilteredBooks() {
     return allBooks
       .filter(b => b.availability !== 'Coming Soon')
       .filter(b => {
         if (currentFilter === 'all') return true;
-        return b.genre.toLowerCase().replace(/[\s-]/g, '') ===
-               currentFilter.toLowerCase().replace(/[\s-]/g, '');
+        // Normalise both sides: lowercase + strip spaces/hyphens
+        // Then check if book genre *includes* the filter token
+        // e.g. filter="mystery" matches genre="Mystery/Thriller"
+        const normFilter = currentFilter.toLowerCase().replace(/[\s-]/g, '');
+        const normGenre  = (b.genre || '').toLowerCase().replace(/[\s-]/g, '');
+        return normGenre.includes(normFilter);
       })
       .filter(b => {
         if (!currentSearch.trim()) return true;
         const q = currentSearch.toLowerCase();
         return b.title.toLowerCase().includes(q) ||
-               b.author.toLowerCase().includes(q);
+               b.author.toLowerCase().includes(q) ||
+               (b.genre || '').toLowerCase().includes(q);
       });
   }
 
@@ -125,6 +134,15 @@
     if (!catalogueGrid) return;
 
     const filtered = getFilteredBooks();
+    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+
+    // Clamp currentPage
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const pageBooks = filtered.slice(start, start + PAGE_SIZE);
+
     catalogueGrid.innerHTML = '';
 
     if (filtered.length === 0) {
@@ -135,13 +153,16 @@
           <p class="body-md text-muted">Try a different search or filter.</p>
         </div>
       `;
+      renderPagination(0, 1);
       return;
     }
 
-    filtered.forEach(book => {
+    pageBooks.forEach(book => {
       const card = renderBookCard(book);
       catalogueGrid.appendChild(card);
     });
+
+    renderPagination(filtered.length, totalPages);
 
     // Trigger animations on newly added cards
     if (window.bibliophileObserveReveal) {
@@ -151,6 +172,60 @@
     if (window.bibliophileAttachTilt) {
       catalogueGrid.querySelectorAll('.book-card').forEach(window.bibliophileAttachTilt);
     }
+  }
+
+  // ── Pagination UI ────────────────────────────────────────
+  function renderPagination(totalBooks, totalPages) {
+    let paginationEl = document.getElementById('catalogue-pagination');
+    if (!paginationEl) {
+      paginationEl = document.createElement('div');
+      paginationEl.id = 'catalogue-pagination';
+      paginationEl.className = 'catalogue-pagination';
+      catalogueGrid.parentNode.insertBefore(paginationEl, catalogueGrid.nextSibling);
+    }
+
+    if (totalPages <= 1) {
+      paginationEl.innerHTML = '';
+      return;
+    }
+
+    const start = (currentPage - 1) * PAGE_SIZE + 1;
+    const end   = Math.min(currentPage * PAGE_SIZE, totalBooks);
+
+    paginationEl.innerHTML = `
+      <div class="pagination-info">Showing ${start}–${end} of ${totalBooks} books</div>
+      <div class="pagination-controls">
+        <button class="pagination-btn" id="pg-prev" ${currentPage === 1 ? 'disabled' : ''} aria-label="Previous page">
+          ← Prev
+        </button>
+        <div class="pagination-pages">
+          ${Array.from({ length: totalPages }, (_, i) => i + 1)
+            .map(p => `<button class="pagination-page-btn ${p === currentPage ? 'active' : ''}" data-page="${p}" aria-label="Page ${p}" aria-current="${p === currentPage ? 'page' : 'false'}">${p}</button>`)
+            .join('')}
+        </div>
+        <button class="pagination-btn" id="pg-next" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Next page">
+          Next →
+        </button>
+      </div>
+    `;
+
+    document.getElementById('pg-prev').addEventListener('click', () => {
+      currentPage--;
+      renderCatalogue();
+      catalogueGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    document.getElementById('pg-next').addEventListener('click', () => {
+      currentPage++;
+      renderCatalogue();
+      catalogueGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    paginationEl.querySelectorAll('.pagination-page-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentPage = parseInt(btn.getAttribute('data-page'));
+        renderCatalogue();
+        catalogueGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
   }
 
   // ── Featured book ────────────────────────────────────────
@@ -241,7 +316,7 @@
           }
         </div>
         <div class="coming-soon-overlay">
-          <span class="badge badge-coming-soon">🔵 Coming Soon</span>
+          <span class="badge badge-coming-soon">Coming Soon</span>
           <p class="coming-title">${book.title}</p>
           <p class="coming-author">by ${book.author}</p>
         </div>
@@ -263,9 +338,15 @@
       filterChips.forEach(c => c.classList.remove('active'));
       this.classList.add('active');
       currentFilter = this.getAttribute('data-filter') || 'all';
+      currentPage = 1; // reset to first page on filter change
       renderCatalogue();
     });
   });
+
+  if (searchInput) {
+    // Also reset page on new search (overrides the earlier listener)
+    searchInput.addEventListener('input', () => { currentPage = 1; });
+  }
 
   // ── Init ─────────────────────────────────────────────────
   async function init() {

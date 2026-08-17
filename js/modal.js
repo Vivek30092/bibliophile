@@ -191,10 +191,10 @@
 
   function getAvailabilityLabel(availability) {
     const map = {
-      'Available':   '🟢 Available',
-      'Rented':      '🔴 Currently Rented',
-      'Reserved':    '🟠 Reserved',
-      'Coming Soon': '🔵 Coming Soon'
+      'Available':   'Available',
+      'Rented':      'Currently Rented',
+      'Reserved':    'Reserved',
+      'Coming Soon': 'Coming Soon'
     };
     return map[availability] || availability;
   }

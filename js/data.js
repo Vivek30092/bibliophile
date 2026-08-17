@@ -20,8 +20,7 @@
  * cover1 | cover2 | cover3 | featured
  */
 
-// TODO: Replace with your published Google Sheets CSV URL
-const SHEETS_CSV_URL = '';
+const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSH44jl6UoFDQM4lFv6V06qxbHIemiFwhRbLXbkpJZrEfUFE1QsdfUKMR3rwhv504hPDn0IdzPThZTD/pub?gid=1984210831&single=true&output=csv';
 
 // Cache key for sessionStorage
 const CACHE_KEY = 'bibliophile_books_cache';
