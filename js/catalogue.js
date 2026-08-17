@@ -1,5 +1,5 @@
 /* ============================================================
-   BIBLIOPHILE — CATALOGUE.JS
+   BIBLIOPHILE VIBES — CATALOGUE.JS
    Render book cards, search, filter, featured book, coming soon
    ============================================================ */
 

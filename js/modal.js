@@ -1,5 +1,5 @@
 /* ============================================================
-   BIBLIOPHILE — MODAL.JS
+   BIBLIOPHILE VIBES — MODAL.JS
    Book detail modal, image carousel, WhatsApp CTA
    ============================================================ */
 
@@ -53,7 +53,7 @@
     const isAvailable = book.availability === 'Available';
 
     const waMessage = encodeURIComponent(
-      `Hi Bibliophile! I'd like to rent "${book.title}" by ${book.author}. Is it available?`
+      `Hi Bibliophile Vibes! I'd like to rent "${book.title}" by ${book.author}. Is it available?`
     );
     const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${waMessage}`;
 

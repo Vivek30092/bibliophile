@@ -1,5 +1,5 @@
 /* ============================================================
-   BIBLIOPHILE — DATA.JS
+   BIBLIOPHILE VIBES — DATA.JS
    Book data, Google Sheets fetch, local fallback
    ============================================================ */
 

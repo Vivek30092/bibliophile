@@ -1,5 +1,5 @@
 /* ============================================================
-   BIBLIOPHILE — ANIMATIONS.JS
+   BIBLIOPHILE VIBES — ANIMATIONS.JS
    IntersectionObserver scroll reveals, parallax, counters
    ============================================================ */
 

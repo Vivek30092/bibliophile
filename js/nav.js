@@ -1,5 +1,5 @@
 /* ============================================================
-   BIBLIOPHILE — NAV.JS
+   BIBLIOPHILE VIBES — NAV.JS
    Scroll-aware navbar, hamburger menu, search overlay
    ============================================================ */
 
