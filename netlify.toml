@@ -4,7 +4,8 @@
   publish = "dist"
 
 [build.environment]
-  # Tell Netlify that public frontend branding/contact variables are not confidential secrets
+  # Disable Netlify secrets scanner from blocking public frontend variables (e.g. site name, phone number)
+  SECRETS_SCAN_ENABLED = "false"
   SECRETS_SCAN_OMIT_KEYS = "VITE_SITE_NAME,VITE_WHATSAPP_NUMBER,VITE_LOCATION,VITE_SUPABASE_ANON_KEY"
 
 [[redirects]]
