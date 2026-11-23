@@ -2,7 +2,6 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { bookService } from '../services/bookService';
 import { authService } from '../services/authService';
-import { isSupabaseConfigured } from '../services/supabase';
 import { Book } from '../types/book';
 import { AdminBookModal } from '../components/AdminBookModal';
 import { getAvailabilityBadge } from '../components/BookCard';
@@ -137,7 +136,7 @@ export const AdminDashboardPage: React.FC = () => {
               Inventory Dashboard
             </h1>
             <p className="text-xs text-stone-400">
-              Bibliophile Vibes Management Portal {!isSupabaseConfigured() && '(Local Storage Mode)'}
+              Bibliophile Vibes Management Portal
             </p>
           </div>
         </div>

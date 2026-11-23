@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
-import { isSupabaseConfigured } from '../services/supabase';
-import { Shield, Lock, Mail, ArrowLeft, AlertCircle, Info } from 'lucide-react';
+import { Shield, Lock, Mail, ArrowLeft, AlertCircle, Eye, EyeOff } from 'lucide-react';
 
 export const AdminLoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export const AdminLoginPage: React.FC = () => {
     setLoading(true);
 
     try {
-      await authService.signIn(email, password);
+      await authService.signIn(email.trim(), password.trim());
       navigate('/admin');
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -29,8 +29,6 @@ export const AdminLoginPage: React.FC = () => {
       setLoading(false);
     }
   };
-
-  const configured = isSupabaseConfigured();
 
   return (
     <div className="min-h-[85vh] flex items-center justify-center px-4 py-12">
@@ -59,24 +57,10 @@ export const AdminLoginPage: React.FC = () => {
             Sign in to manage the Bibliophile inventory
           </p>
 
-          {!configured && (
-            <div className="mt-4 p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-start gap-2">
-              <Info className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
-              <div>
-                <strong>Local Development Mode</strong>
-                <p className="mt-0.5 text-stone-300">
-                  Supabase credentials are not yet set in <code className="text-amber-200">.env</code>. You can log in with:
-                  <br />
-                  <span className="text-stone-100 font-mono">admin@bibliophile.com</span> / <span className="text-stone-100 font-mono">admin123</span>
-                </p>
-              </div>
-            </div>
-          )}
-
           {error && (
-            <div className="mt-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
-              <span>{error}</span>
+            <div className="mt-4 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-300 text-xs flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-400 mt-0.5" />
+              <span className="leading-relaxed">{error}</span>
             </div>
           )}
 
@@ -94,7 +78,7 @@ export const AdminLoginPage: React.FC = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@bibliophile.com"
+                  placeholder="admin@bibliophile.in"
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-deep border border-white/10 text-stone-100 text-sm focus:outline-none focus:border-accent"
                 />
               </div>
@@ -109,13 +93,22 @@ export const AdminLoginPage: React.FC = () => {
                   <Lock className="w-4 h-4" />
                 </div>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-deep border border-white/10 text-stone-100 text-sm focus:outline-none focus:border-accent"
+                  className="w-full pl-10 pr-11 py-2.5 rounded-xl bg-deep border border-white/10 text-stone-100 text-sm focus:outline-none focus:border-accent"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-stone-400 hover:text-stone-200 transition-colors cursor-pointer"
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  title={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
             </div>
 
