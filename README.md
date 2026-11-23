@@ -174,9 +174,7 @@ node scripts/import-to-supabase.js
 
 ---
 
-## 🌐 Production Deployment to Netlify
 
-The repository is already configured for automatic deployments with Netlify:
 
 1. **Push Changes to GitHub**:
    ```bash
@@ -190,9 +188,7 @@ The repository is already configured for automatic deployments with Netlify:
 3. **Configure Environment Variables on Netlify**:
    - Go to your site settings on Netlify: **Site configuration** → **Environment variables**.
    - Add:
-     - `VITE_SUPABASE_URL` = your Supabase URL
-     - `VITE_SUPABASE_ANON_KEY` = your Supabase Anon key
-     - `VITE_WHATSAPP_NUMBER` = `917828659551`
+
 4. Netlify will automatically build and deploy. All routes (`/`, `/books/:id`, `/admin`) and page refreshes work properly thanks to `_redirects` and `netlify.toml`.
 
 ---
