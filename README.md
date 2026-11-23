@@ -1,252 +1,226 @@
-   # Bibliophile — Website Setup & Deployment Guide
+# Bibliophile Vibes — Modern Book Rental Web Application (Phase 1)
+
+Modern, mobile-first bookstore and rental web application for **Bibliophile Vibes** (home library in Sukhliya, Indore). Built with React, Vite, TypeScript, Tailwind CSS, React Router, and Supabase.
+
+---
+
+## 🌟 Key Features Implemented (Phase 1)
+
+1. **Responsive Mobile-First Bookstore Experience**:
+   - Polished bookstore aesthetic preserving original warm dark design tokens (`#141210`, `#1E1A16`, gold accent `#C4945A`, Cormorant Garamond serif headings, Inter body).
+   - Fluid 2-column card layout on small/mobile screens, scaling to 3 and 4 columns on tablets and desktops.
+   - Ambient glow effects and floating hero book covers.
+2. **Fast Book Catalogue**:
+   - Comprehensive catalogue of books with responsive cover presentation, genre badges, rental rates, and availability statuses.
+   - Featured "Book of the Week" spotlight section.
+   - Complete library stats strip, "How It Works" 5-step process, transparent "Rental Rules", and "Reader's Corner".
+3. **Dedicated Book Detail Pages & URL Sharing**:
+   - Dedicated `/books/:id` route for every book.
+   - Full cover image display (with thumbnail gallery for multi-cover books), full synopsis, duration, condition, pages, ISBN, rental rate, and refundable security deposit.
+   - Social sharing and link copy button.
+4. **Correct Browser & Mobile Back-Button Navigation**:
+   - Replaced modal overlay with client-side React Router navigation.
+   - When a customer navigates from a searched/filtered catalogue to a book and presses the phone or browser Back button, they return to the exact previous catalogue state (search queries, active filters, and scroll position preserved).
+   - "Back to Catalogue" button with intelligent history detection and safe fallback to `/`.
+   - Direct links (e.g. `/books/BK001`) and page refreshes work reliably via SPA redirects.
+5. **Real-Time Search & Dynamic Filters**:
+   - Instant case-insensitive search by book title, author, or genre.
+   - Dynamic genre filter tags extracted automatically from current inventory.
+   - Availability filters (All, Available Now, Coming Soon, Rented).
+   - Combined multi-filter support with one-click "Reset Filters" and friendly empty state.
+6. **WhatsApp Enquiry & Rental Action**:
+   - One-click click-to-chat integration with official WhatsApp API URL scheme.
+   - Prefills book title, author, and book ID (e.g., `Hi Bibliophile Vibes! I would like to enquire about renting "The Alchemist" by Paulo Coelho (Book ID: BK016). Is it available?`).
+   - Sticky WhatsApp button for mobile screens and general WhatsApp chat link.
+7. **Database-Powered Inventory with Supabase**:
+   - Complete PostgreSQL schema (`supabase/schema.sql`) with Row Level Security (RLS).
+   - Public visitors have read-only access to active books.
+   - Authenticated administrators have full write permissions.
+   - Ready-to-run seed data (`supabase/seed.sql`) containing all 54 original inventory books migrated from the Google Sheet.
+   - Automatic fallback dataset (`src/data/initialBooks.json`) so the website runs locally and previews seamlessly even before Supabase is connected.
+8. **Secure Admin Portal (`/admin`)**:
+   - Protected route requiring admin authentication via Supabase Auth.
+   - Live inventory counters (Total Books, Available, Rented, Coming Soon).
+   - Searchable, filterable inventory table.
+   - Form to Add and Edit books with live image file upload to Supabase Storage (or direct image URLs).
+   - Safe archive functionality with confirmation step.
+9. **Zero-Configuration Netlify Deployment**:
+   - `_redirects` and `netlify.toml` configured for SPA routing (`/* -> /index.html 200`).
+   - Optimized asset chunking in `vite.config.ts`.
+
+---
 
 ## 📁 Project Structure
 
 ```
-bibliophile book point/
-├── index.html              ← Main website (open this in a browser)
-├── css/
-│   ├── base.css            ← Design tokens, typography, fonts
-│   ├── layout.css          ← Grids, containers, spacing
-│   ├── components.css      ← All UI components
-│   ├── animations.css      ← Keyframes & scroll reveals
-│   └── responsive.css      ← Mobile breakpoints
-├── js/
-│   ├── data.js             ← Book data + Google Sheets fetch
-│   ├── catalogue.js        ← Book grid, search, filter
-│   ├── modal.js            ← Book detail modal
-│   ├── nav.js              ← Navbar + hamburger menu
-│   └── animations.js       ← Scroll animations
-├── assets/
-│   └── favicon.svg
-└── README.md               ← This file
+bibliophile/
+├── public/
+│   ├── _redirects                  ← Netlify SPA redirect rule
+│   ├── assets/
+│   │   └── favicon.svg             ← Library favicon
+│   └── Terms & Conditions _ Bibliophile.pdf
+├── src/
+│   ├── components/                 ← UI components
+│   │   ├── AdminBookModal.tsx      ← Modal form for Add/Edit book
+│   │   ├── BookCard.tsx            ← Catalogue book card
+│   │   ├── FeaturedBook.tsx        ← Spotlight Book of the Week
+│   │   ├── FilterChips.tsx         ← Genre & status filter chips
+│   │   ├── Footer.tsx              ← Bookstore footer & contacts
+│   │   ├── Hero.tsx                ← Hero section & floating covers
+│   │   ├── HowItWorks.tsx          ← 5-step rental guide
+│   │   ├── Navbar.tsx              ← Responsive navbar & mobile menu
+│   │   ├── ReadersCorner.tsx       ← Community quotes & reading notes
+│   │   ├── RentalRules.tsx         ← Guidelines & deposit policies
+│   │   ├── SearchBar.tsx           ← Fast search input
+│   │   └── StatsStrip.tsx          ← Key metrics strip
+│   ├── data/
+│   │   └── initialBooks.json       ← 54 migrated books fallback data
+│   ├── pages/
+│   │   ├── AdminDashboardPage.tsx  ← Inventory management dashboard
+│   │   ├── AdminLoginPage.tsx      ← Admin sign-in portal
+│   │   ├── BookDetailPage.tsx      ← Individual book page & WhatsApp CTA
+│   │   └── CataloguePage.tsx       ← Public catalogue & homepage
+│   ├── services/
+│   │   ├── authService.ts          ← Supabase authentication wrapper
+│   │   ├── bookService.ts          ← Inventory CRUD & Supabase/fallback sync
+│   │   └── supabase.ts             ← Supabase client initialization
+│   ├── types/
+│   │   └── book.ts                 ← TypeScript data interfaces
+│   ├── utils/
+│   │   └── whatsapp.ts             ← WhatsApp click-to-chat URL helpers
+│   ├── App.tsx                     ← React Router setup
+│   ├── index.css                   ← Tailwind CSS & design tokens
+│   ├── main.tsx                    ← Application entry point
+│   └── vite-env.d.ts               ← Environment variable typings
+├── supabase/
+│   ├── schema.sql                  ← PostgreSQL table, indexes & RLS policies
+│   └── seed.sql                    ← Complete SQL seed with 54 books
+├── scripts/
+│   ├── migrate-inventory.js        ← CSV parser & seed generator
+│   └── import-to-supabase.js       ← Programmatic REST migration script
+├── existing_inventory.csv          ← Preserved 54-row inventory data
+├── index.html                      ← Vite HTML entry
+├── netlify.toml                    ← Netlify deployment configuration
+├── package.json                    ← Project dependencies & scripts
+├── tailwind.config.js              ← Tailwind configuration & custom theme
+└── vite.config.ts                  ← Vite build configuration & chunking
 ```
 
 ---
 
-## ✅ Quick Start: Run Locally
+## 🚀 Local Development Setup
 
-Just open `index.html` in any browser. No build step required.
+### 1. Prerequisites
+- Node.js (v18 or higher recommended)
+- npm or pnpm
 
-> **Note**: Google Sheets fetch requires a web server due to browser CORS policy.  
-> For local development with Google Sheets, use a simple local server:
-> ```bash
-> # Python (built-in)
-> python -m http.server 8080
-> # Then open: http://localhost:8080
-> ```
-
----
-
-## 🔧 Step 1 — Update Your WhatsApp Number
-
-Search for `TODO` in the codebase and update the WhatsApp number:
-
-**Files to update:**
-- `js/modal.js` → line ~6: `const WHATSAPP_NUMBER = '917828659551';`
-- `js/catalogue.js` → line ~6: `const WHATSAPP_NUMBER = '917828659551';`
-- `index.html` → every `wa.me/917828659551` link
-
-**Format:** Country code + number, no `+`, no spaces.  
-Example for India: `919876543210`
-
----
-
-## 🔧 Step 2 — Update Instagram Handle
-
-In `index.html`, search for `bibliophile.books` and replace with your Instagram handle.
-
----
-
-## 🔧 Step 3 — Update Location
-
-In `index.html`, search for `your city` and replace with your city or neighbourhood.
-
----
-
-## 🔧 Step 4 — Create Google Form for Book Requests
-
-1. Go to [Google Forms](https://forms.google.com)
-2. Create a form with fields:
-   - Name
-   - Book title
-   - Author
-   - Phone/WhatsApp
-   - Address
-   - Message (optional)
-3. Copy the form URL
-4. In `index.html`, replace `https://forms.google.com` with your form URL
-
----
-
-## 🔧 Step 5 — Connect Google Sheets (Inventory)
-
-### Create the Sheet
-
-1. Open [Google Sheets](https://sheets.google.com)
-2. Create a new spreadsheet named `Bibliophile Inventory`
-3. Add these exact column headers in Row 1:
-
-```
-id | title | author | genre | description | pages | condition | rentalPrice | rentalDuration | securityDeposit | availability | cover1 | cover2 | cover3 | featured
+### 2. Install Dependencies
+```bash
+npm install
 ```
 
-### Column reference
-
-| Column | Field | Example values |
-|--------|-------|----------------|
-| A | `id` | 001, 002, 003… |
-| B | `title` | The Alchemist |
-| C | `author` | Paulo Coelho |
-| D | `genre` | Fiction, Romance, Mystery, Thriller, Fantasy, Self-Help, Biography, Non-Fiction |
-| E | `description` | Short synopsis (2–4 sentences) |
-| F | `pages` | 208 |
-| G | `condition` | Like New / Very Good / Good |
-| H | `rentalPrice` | 30 |
-| I | `rentalDuration` | 7 |
-| J | `securityDeposit` | 100 |
-| K | `availability` | Available / Rented / Reserved / Coming Soon |
-| L | `cover1` | Full image URL (see below) |
-| M | `cover2` | Optional second image URL |
-| N | `cover3` | Optional third image URL |
-| O | `featured` | TRUE or FALSE (only one book should be TRUE) |
-
-### Getting book cover images
-
-Use the Open Library API (free, no API key needed):
+### 3. Environment Variables
+Copy the example environment configuration:
+```bash
+cp .env.example .env
 ```
-https://covers.openlibrary.org/b/isbn/[ISBN]-L.jpg
+Edit `.env` with your settings:
+```env
+# Supabase (optional for local preview - fallback data is bundled!)
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key-here
+
+# WhatsApp Business Contact Number (Country code + number, no + or spaces)
+VITE_WHATSAPP_NUMBER=917828659551
+
+# Business Information
+VITE_SITE_NAME=Bibliophile Vibes
+VITE_LOCATION=Indore, MP, India
 ```
 
-Example:
+### 4. Run Development Server
+```bash
+npm run dev
 ```
-https://covers.openlibrary.org/b/isbn/9780062315007-L.jpg
-```
+Open `http://localhost:5173` in your browser.
 
-Or use any direct image URL (Google Drive: share → copy link → convert to direct link).
-
-### Publish the Sheet
-
-1. In Google Sheets: **File → Share → Publish to web**
-2. Select your sheet tab (not "Entire document")
-3. Choose **Comma-separated values (.csv)**
-4. Click **Publish**
-5. Copy the URL (looks like: `https://docs.google.com/spreadsheets/d/.../pub?gid=...&single=true&output=csv`)
-
-### Connect to the website
-
-In `js/data.js`, find line 22:
-```javascript
-const SHEETS_CSV_URL = '';
-```
-
-Paste your CSV URL:
-```javascript
-const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/pub?gid=0&single=true&output=csv';
-```
-
-### How to update availability
-
-1. Open your Google Sheet
-2. Change the value in the `availability` column to:
-   - `Available` — book is ready to rent
-   - `Rented` — currently rented out
-   - `Reserved` — reserved by someone
-   - `Coming Soon` — not yet available
-3. **That's it.** The website reflects changes within 5 minutes automatically.
-
-> **Note**: Availability changes appear within 5 minutes due to browser caching.  
-> To force an immediate update, a visitor can open the site in a new private/incognito window.
+> **Note**: Even without Supabase credentials filled, the website operates seamlessly in local fallback mode with all 54 books, search, filters, detail views, and a local demo admin login (`admin@bibliophile.com` / `admin123`)!
 
 ---
 
-## 🎨 Customisation
+## 🗄️ Supabase Setup & Migration Guide
 
-### Change the tagline
-In `index.html`, find:
-```html
-A little library, waiting for your next story.
+### Step 1: Create a Supabase Project (Free Tier)
+1. Go to [supabase.com](https://supabase.com) and sign in.
+2. Click **New Project** and select your preferred region (e.g. Mumbai, India `ap-south-1`).
+3. Set your database password and wait ~1 minute for setup to complete.
+
+### Step 2: Apply Database Schema & RLS Policies
+1. In the Supabase Dashboard, go to the **SQL Editor** (left sidebar).
+2. Open or copy the contents of [`supabase/schema.sql`](supabase/schema.sql).
+3. Paste into the SQL Editor and click **Run**.
+4. This creates:
+   - The `books` table with columns, data types, and timestamps.
+   - Search indexes on `title`, `author`, `genre`, and `availability`.
+   - Row Level Security (RLS) policies allowing public `SELECT` and authenticated admin `ALL` operations.
+   - The public storage bucket `book-covers` with upload policies.
+
+### Step 3: Populate Inventory Seed Data
+You have two easy options:
+
+**Option A (Via SQL Editor — Fastest):**
+1. In Supabase Dashboard → **SQL Editor**, open [`supabase/seed.sql`](supabase/seed.sql).
+2. Paste and click **Run**.
+3. All 54 books are immediately inserted with correct pricing, categories, and cover URLs.
+
+**Option B (Via Node Script):**
+```bash
+node scripts/import-to-supabase.js
 ```
-Replace with your preferred tagline.
 
-### Change stats
-In `index.html`, find the `stats-grid` section and update the numbers and labels.
-
-### Change colours
-In `css/base.css`, update the CSS custom properties under `:root`.
-
-### Add more genre filters
-In `index.html`, find the `filter-chips` section and add new buttons:
-```html
-<button class="filter-chip" data-filter="your-genre">Your Genre</button>
-```
+### Step 4: Create the First Administrator Account
+1. In Supabase Dashboard, go to **Authentication** → **Users**.
+2. Click **Add User** → **Create User**.
+3. Enter your administrator email and a strong password (e.g. `owner@bibliophile.in`).
+4. Toggle **Auto Confirm User?** to `ON` so the account is immediately active without email verification.
+5. You can now use these credentials to log in at `https://bibliophilebooks.netlify.app/admin/login`!
 
 ---
 
-## 🚀 Deployment
+## 🌐 Production Deployment to Netlify
 
-### GitHub Pages (Free)
-1. Create a free GitHub account and repository
-2. Upload all project files
-3. Go to Settings → Pages → Source: main branch
-4. Your site will be live at `https://yourusername.github.io/bibliophile`
+The repository is already configured for automatic deployments with Netlify:
 
-### Netlify (Free, Recommended)
-1. Go to [netlify.com](https://netlify.com)
-2. Drag and drop your project folder onto the Netlify dashboard
-3. Done — your site is live instantly with a free URL
-4. Optional: Connect a custom domain (e.g., `bibliophile.in`)
-
-### Vercel (Free)
-1. Go to [vercel.com](https://vercel.com)
-2. Import your GitHub repository or upload files
-3. Instant deployment
-
----
-
-## 📱 Private Inventory Sheet
-
-**Never expose customer data publicly.**
-
-Create a **second, private** Google Sheet for rental management:
-
-| Field | Description |
-|-------|-------------|
-| Book ID | Matches the public sheet |
-| Customer Name | Renter's name |
-| Phone/WhatsApp | Contact number |
-| Rental Date | When rented |
-| Due Date | When to return |
-| Security Deposit | Amount collected |
-| Payment | Rental payment received |
-| Return Status | Returned / Pending |
-| Notes | Any notes |
-
-Keep this sheet **never published**. Only you should have access.
+1. **Push Changes to GitHub**:
+   ```bash
+   git add .
+   git commit -m "Modernise website to Phase 1: React + Vite + Supabase"
+   git push origin main
+   ```
+2. **Netlify Build Settings**:
+   - **Build Command**: `npm run build`
+   - **Publish Directory**: `dist`
+3. **Configure Environment Variables on Netlify**:
+   - Go to your site settings on Netlify: **Site configuration** → **Environment variables**.
+   - Add:
+     - `VITE_SUPABASE_URL` = your Supabase URL
+     - `VITE_SUPABASE_ANON_KEY` = your Supabase Anon key
+     - `VITE_WHATSAPP_NUMBER` = `917828659551`
+4. Netlify will automatically build and deploy. All routes (`/`, `/books/:id`, `/admin`) and page refreshes work properly thanks to `_redirects` and `netlify.toml`.
 
 ---
 
-## 🔒 Privacy Notes
+## 🧪 Acceptance Testing Summary
 
-- The public Google Sheet contains **no customer information**
-- Never add customer names, phone numbers, or addresses to the public inventory sheet
-- Do not expose your home address publicly — use "Message us on WhatsApp for pickup location"
-
----
-
-## 📊 Future Upgrades (V2 ideas)
-
-- Backend API (Node.js / Supabase)
-- User accounts and rental tracking
-- Online payment (Razorpay)
-- Customer reservations
-- Admin dashboard
-- Automated overdue reminders
-- Wishlist and personalised recommendations
-
----
-
-## 📬 Need Help?
-
-All `TODO` comments in the code mark placeholders you need to update.  
-Search for `TODO` in any code editor to find them all at once.
+| Requirement | Status | Notes |
+|---|---|---|
+| Responsive mobile-first design | ✅ Passed | Tested across mobile (2-column grid), tablet (3-column), and desktop (4-column) |
+| Fast book catalogue | ✅ Passed | Instant render of book cards with covers, pricing, genre badges, and status |
+| Individual book detail pages | ✅ Passed | Route `/books/:id` renders full details, ISBN, condition, deposit, and synopsis |
+| Browser & Mobile Back Navigation | ✅ Passed | Mobile/browser Back button accurately returns user to filtered catalogue state |
+| Search by title and author | ✅ Passed | Case-insensitive multi-field search with instant query updates |
+| Dynamic Genre & Status Filters | ✅ Passed | Filter chips derived dynamically from inventory + status toggle + reset |
+| WhatsApp enquiry button | ✅ Passed | Official click-to-chat URL with prefilled book title, author, and book ID |
+| Database-backed inventory | ✅ Passed | Supabase PostgreSQL schema, RLS policies, and seed data migration |
+| Secure Admin Dashboard | ✅ Passed | Protected route `/admin`, stats counters, Add/Edit book modal, and Archive |
+| Netlify SPA Deployment Ready | ✅ Passed | Production build verified (`dist/` generated with `_redirects` and `netlify.toml`) |
