@@ -123,20 +123,7 @@ npm install
 Copy the example environment configuration:
 ```bash
 cp .env.example .env
-```
-Edit `.env` with your settings:
-```env
-# Supabase (optional for local preview - fallback data is bundled!)
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-key-here
 
-# WhatsApp Business Contact Number (Country code + number, no + or spaces)
-VITE_WHATSAPP_NUMBER=917828659551
-
-# Business Information
-VITE_SITE_NAME=Bibliophile Vibes
-VITE_LOCATION=Indore, MP, India
-```
 
 ### 4. Run Development Server
 ```bash
