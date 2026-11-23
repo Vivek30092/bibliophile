@@ -4,10 +4,10 @@ node_modules/
 # Production build
 dist/
 
-# Local env files
+# Local environment files (contains secrets)
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 
 # Editor & OS files
 .DS_Store
